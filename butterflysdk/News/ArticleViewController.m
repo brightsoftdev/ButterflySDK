@@ -25,6 +25,15 @@
     return self;
 }
 
+- (id)initWithManager:(ButterflyManager *)mgr
+{
+    self = [super initWithManager:mgr];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [theWebview release];

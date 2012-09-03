@@ -25,6 +25,18 @@
     return self;
 }
 
+- (id)initWithManager:(ButterflyManager *)mgr
+{
+    self = [super initWithManager:mgr];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kUpdate object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kThumbnailReadyNotification object:nil];
+    }
+    return self;
+}
+
+
+
 - (void)dealloc
 {
     [station release];
@@ -168,8 +180,9 @@
     }
     else {
         Article *article = (Article *)[station.articles objectAtIndex:indexPath.row];
-        ArticleViewController *articleView = [[ArticleViewController alloc] initWithNibName:@"ArticleViewController" bundle:nil];
-        articleView.butterflyMgr = self.butterflyMgr;
+//        ArticleViewController *articleView = [[ArticleViewController alloc] initWithNibName:@"ArticleViewController" bundle:nil];
+        ArticleViewController *articleView = [[ArticleViewController alloc] initWithManager:self.butterflyMgr];
+//        articleView.butterflyMgr = self.butterflyMgr;
         articleView.hidesBottomBarWhenPushed = YES;
         
         articleView.article = article;
