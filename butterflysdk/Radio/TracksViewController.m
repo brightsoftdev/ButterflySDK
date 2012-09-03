@@ -67,7 +67,7 @@
     UIButton *nowPlaying = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *img = [UIImage imageNamed:@"nowPlaying.png"];
     [nowPlaying setBackgroundImage:img forState:UIControlStateNormal];
-    [nowPlaying addTarget:self action:@selector(showRadio:) forControlEvents:UIControlEventTouchUpInside];
+    [nowPlaying addTarget:self action:@selector(showRadio) forControlEvents:UIControlEventTouchUpInside];
     nowPlaying.showsTouchWhenHighlighted = YES;
     nowPlaying.frame = CGRectMake(0, 0, img.size.width, img.size.height);
     UIBarButtonItem *showRadio = [[UIBarButtonItem alloc] initWithCustomView:nowPlaying];
@@ -82,12 +82,6 @@
 {
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kSupportLandscape object:nil]];
     [theTablview deselectRowAtIndexPath:[theTablview indexPathForSelectedRow] animated:YES];
-}
-
-- (void)showRadio:(UIButton *)btn
-{
-    [self.butterflyMgr showRadio];
-    
 }
 
 - (void)postTrack:(UIBarButtonItem *)btn
@@ -121,7 +115,6 @@
         cell.detailTextLabel.numberOfLines = 2;
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.textLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0f];
-//        cell.imageView.image = [UIImage imageNamed:@"btn_play.png"];
         cell.imageView.image = [UIImage imageNamed:@"table_tracks.png"];
     }
     
@@ -140,17 +133,6 @@
         [theTablview deselectRowAtIndexPath:[theTablview indexPathForSelectedRow] animated:YES];
     }
     else {
-//        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        appDelegate.player.files = station.tracks;
-//        appDelegate.currentStation = station;
-//        
-//        if (appDelegate.player.streamer.isRunning==TRUE){
-//            [appDelegate.player playFile:indexPath.row];
-//        }
-//        else {
-//            [appDelegate.player start:indexPath.row];
-//        }
-        
         self.butterflyMgr.player.files = station.tracks;
         self.butterflyMgr.currentStation = station;
         
