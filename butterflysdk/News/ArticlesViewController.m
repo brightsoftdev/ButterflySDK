@@ -71,7 +71,7 @@
     UIButton *nowPlaying = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *img = [UIImage imageNamed:@"nowPlaying.png"];
     [nowPlaying setBackgroundImage:img forState:UIControlStateNormal];
-    [nowPlaying addTarget:self action:@selector(showRadio:) forControlEvents:UIControlEventTouchUpInside];
+    [nowPlaying addTarget:self action:@selector(showRadio) forControlEvents:UIControlEventTouchUpInside];
     nowPlaying.showsTouchWhenHighlighted = YES;
     nowPlaying.frame = CGRectMake(0, 0, img.size.width, img.size.height);
     UIBarButtonItem *showRadio = [[UIBarButtonItem alloc] initWithCustomView:nowPlaying];
@@ -91,15 +91,6 @@
 {
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kSupportLandscape object:nil]];
     [theTablview deselectRowAtIndexPath:[theTablview indexPathForSelectedRow] animated:YES];
-}
-
-- (void)showRadio:(UIButton *)btn
-{
-//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [appDelegate showRadio];
-    
-    [self.butterflyMgr showRadio];
-    
 }
 
 - (void)refresh
@@ -123,8 +114,6 @@
         cell.detailTextLabel.numberOfLines = 2;
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.textLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16.0f];
-//        cell.imageView.layer.cornerRadius = 5.0f;
-//        cell.imageView.layer.masksToBounds = YES;
     }
     if ([self.station.articles containsObject:@"none"]){
         cell.textLabel.text = @"none";
@@ -180,9 +169,7 @@
     }
     else {
         Article *article = (Article *)[station.articles objectAtIndex:indexPath.row];
-//        ArticleViewController *articleView = [[ArticleViewController alloc] initWithNibName:@"ArticleViewController" bundle:nil];
         ArticleViewController *articleView = [[ArticleViewController alloc] initWithManager:self.butterflyMgr];
-//        articleView.butterflyMgr = self.butterflyMgr;
         articleView.hidesBottomBarWhenPushed = YES;
         
         articleView.article = article;
