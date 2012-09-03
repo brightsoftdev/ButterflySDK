@@ -19,4 +19,5 @@ PART 2 - IMPORT LIBRARY
 - Import library into new project source files, like:
 	#import <StaticLibrary/HeaderFile.h>
 - add required frameworks (see frameworks.png)
+- import "resources" folder into the main project directory - select copy option.
 - Build
