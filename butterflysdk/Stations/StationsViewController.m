@@ -24,14 +24,6 @@
         isLoading = FALSE;
         self.tabBarItem.image = [UIImage imageNamed:@"tab_home.png"];
 
-//        UIImage *img_banner = [UIImage imageNamed:@"banner_home.png"];
-//        CGFloat w = img_banner.size.width;
-//        CGFloat h = img_banner.size.height;
-//        UIImageView *banner = [[UIImageView alloc] initWithFrame:CGRectMake(0.5*(320-w), 10, w, h)];
-//        banner.image = img_banner;
-//        self.navigationItem.titleView = banner;
-//        [banner release];
-
         imageCount = 0;
         self.title = @"Home";
         searchedStations = [[NSMutableDictionary alloc] init];
