@@ -63,7 +63,6 @@
 {
     [super viewDidLoad];
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"post" style:UIBarButtonItemStyleBordered target:self action:@selector(postTrack:)];
-//    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(postTrack:)];
     
     UIButton *nowPlaying = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *img = [UIImage imageNamed:@"nowPlaying.png"];
@@ -74,7 +73,6 @@
     UIBarButtonItem *showRadio = [[UIBarButtonItem alloc] initWithCustomView:nowPlaying];
 
     
-//    self.navigationItem.rightBarButtonItem = barButton;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:showRadio, barButton, nil];
     [barButton release];
     [showRadio release];
@@ -88,9 +86,6 @@
 
 - (void)showRadio:(UIButton *)btn
 {
-//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [appDelegate showRadio];
-    
     [self.butterflyMgr showRadio];
     
 }
@@ -169,7 +164,6 @@
         
         RadioViewController *radio = [[RadioViewController alloc] initWithManager:self.butterflyMgr];
         radio.hidesBottomBarWhenPushed = YES;
-//        radio.station = station;
         [self.navigationController pushViewController:radio animated:YES];
         [radio.loading show];
         [radio release];

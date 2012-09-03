@@ -89,9 +89,6 @@ static const CGFloat kDefaultReflectionOpacity = 0.60;
     
     detailsView = [[TrackDetailView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     detailsView.delegate = self;
-//    if (player.streamer.source.full==TRUE){ 
-//        detailsView.slider.hidden = NO;
-//    }
     if (self.butterflyMgr.player.streamer.source.full==TRUE){
         detailsView.slider.hidden = NO;
     }
@@ -181,9 +178,6 @@ static const CGFloat kDefaultReflectionOpacity = 0.60;
     [btnTweet release];
     [btnComment release];
     
-//    if (!self.butterflyMgr.player.streamer.isRunning)
-//        [loading show];
-
 
 }
 
