@@ -96,15 +96,15 @@ static NSString *file = @"picture.jpg";
     original.delegate = self;
     [view addSubview:original];
 
-    loading = [[LoadingIndicator alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    [loading hide];
-    [view addSubview:loading];
-    
     linkView = [[LinkView alloc] initWithFrame:original.frame];
     linkView.titleLabel.text = [NSString stringWithFormat:@"submit link: %@", station.name];
     linkView.hidden = YES;
     [view addSubview:linkView];
 
+    loading = [[LoadingIndicator alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    [loading hide];
+    [view addSubview:loading];
+    
     
     self.view = view;
     [view release];
