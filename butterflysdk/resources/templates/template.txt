@@ -1,0 +1,30 @@
+<html>
+<head>
+  <style type="text/css">
+
+	body {
+        font-family: Heiti SC;
+	}
+    
+    h1 {
+		color: blue;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+  <h1>{{title}}</h1>
+  <div>
+    {{image}}
+  </div>
+
+  <div style="margin-top:30px;color:black">
+    <b>{{author}}</b><br />
+    <b>{{date}}</b><br /><br />
+    {{content}}
+  </div>
+
+</body>
+</html>

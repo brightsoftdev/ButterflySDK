@@ -1,0 +1,3 @@
+To begin podcasting, tap '+' on the top right corner and create a new station. All station details can be changed at any time.
+
+After creating a station, the {{APP NAME}} app administrators will approve or deny it.  If approved, you can start recording audio content on the {{APP NAME}} app and anyone with the app can listen.

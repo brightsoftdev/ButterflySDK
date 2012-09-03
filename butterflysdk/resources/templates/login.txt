@@ -1,0 +1,1 @@
+To submit a station on the {{app name}} app, select your email provider from above and log in. If you have an account, you will be taken to your profile page.  If not, you will be taken to a registration page.

@@ -1,0 +1,1 @@
+To add a station to your favorites, go to a station page and tap the heart in the panel on the top right section.  The heart will turn red which indicates that the station has been added to your favorites.

@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ButterflySDK' target in the 'ButterflySDK' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

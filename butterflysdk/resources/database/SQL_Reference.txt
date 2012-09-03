@@ -1,0 +1,10 @@
+$ cd ~/desktop
+$ sqlite3 database.sqlite3
+SQLite version 3.7.7 2011-06-25 16:35:41
+Enter ".help" for instructions
+Enter SQL statements terminated with a ";"
+sqlite> create table stations(uniqueId text, name text, host text, category text, image text);
+sqlite> 
+
+
+
