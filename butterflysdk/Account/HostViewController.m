@@ -54,6 +54,9 @@ static UIImage *cellBg;
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRefreshNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kThumbnailReadyNotification object:nil];
+    
     if (req!=nil){
         [req cancel];
         req.delegate = nil;
