@@ -1,0 +1,22 @@
+http://www.blog.montgomerie.net/easy-xcode-static-library-subprojects-and-submodules
+
+PART 1 - CREATE LIBRARY
+- Create new xcode project using static library template
+- Navigate to "Build Settings" -> All -> Levels and find "Public Headers Folder Path"
+- In "Public Headers Folder Path", set argument to "include/$(TARGET_NAME)
+- Write library source code
+- Set all header files to PUBLIC by navigating to BUILD PHASES -> Copy Files.  Here, link all header files of library.
+
+
+
+PART 2 - IMPORT LIBRARY
+- Create new xcode project
+- drag library XCode project into host project
+- Navigate to Targets -> Build Phases -> Target Dependencies and add Library Project
+- In same area, navigate to Link Binary with Libraries and add Library Project
+- In Build Settings, find "Other Linker Flags" and add -ObjC AND -all_load
+- In "Header Search Paths" add "$(TARGET_BUILD_DIR)/usr/local/lib/include" and "$(OBJROOT)/UninstalledProducts/include" WITH QUOTES
+- Import library into new project source files, like:
+	#import <StaticLibrary/HeaderFile.h>
+- add required frameworks (see frameworks.png)
+- Build
