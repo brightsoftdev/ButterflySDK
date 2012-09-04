@@ -23,30 +23,6 @@ static ButterflyManager *manager;
 @synthesize appHost;
 @synthesize db;
 
-/*
-- (id)init
-{
-    self = [super init];
-    if (self){
-//        NSLog(@"BUTTERFLY MANAGER - INIT");
-//        [self configure];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFile:) name:@"new file" object:nil];
-//
-//        Host *h = [[Host alloc] init];
-//        self.host = h;
-//        self.host.appHost = self.appHost;
-//        [h release];
-//        
-//        Player *p = [[Player alloc] init];
-//        self.player = p;
-//        [p release];
-        
-        
-        
-//        [self checkDatabase]; // ! ! this crashes the app
-    }
-    return self;
-} */
 
 - (id)initWithAppHost:(NSString *)hostStation
 {
