@@ -69,7 +69,6 @@ static NSString *file = @"picture.jpg";
     UIView *view = [[UIView alloc] initWithFrame:frame];
     view.autoresizingMask = resize;
     view.backgroundColor = [UIColor blackColor];
-//    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:kMainBackground]];
     
     ToolBar *toolbar = [[ToolBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     toolbar.delegate = self;
@@ -189,23 +188,9 @@ static NSString *file = @"picture.jpg";
     [loading show];
 }
 
-//- (NSString *)createFilePath:(NSString *)fileName
-//{
-//	fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"+"];
-//	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//	NSString *docPath = [paths objectAtIndex:0];
-//	NSString *filePath = [docPath stringByAppendingPathComponent:fileName];
-//	NSLog(@"filepath = %@", filePath);
-//	return filePath;
-//}
-
 - (void)showMissingValueAlert
 {
     [self showAlert:@"Missing Value" message:@"Please complete all fields (image optional)."];
-    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Value" message:@"Please complete all fields (image optional)." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-//    [alert show];
-//    [alert release];
 }
 
 - (void)submitArticle:(UIBarButtonItem *)btn
@@ -313,7 +298,6 @@ static NSString *file = @"picture.jpg";
 #pragma mark - ToolBar
 - (void)exit
 {
-//    [self.navigationController popViewControllerAnimated:YES];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -333,10 +317,6 @@ static NSString *file = @"picture.jpg";
     NSDictionary *d = [json JSONValue];
     if (d==nil){
         [self showAlert:@"Error" message:@"There was an error. Please try again."];
-        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error. Please try again." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-//        [alert show];
-//        [alert release];
     }
     else{
         d = [d objectForKey:@"results"];
@@ -344,10 +324,6 @@ static NSString *file = @"picture.jpg";
         NSString *confirmation = [d objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]){
             [self showAlert:@"Article Submitted" message:@"Your article was submitted. An admin will review it shortly. Thank you."];
-
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Article Submitted" message:@"Your article was submitted. An admin will review it shortly. Thank you." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-//            [alert show];
-//            [alert release];
             [self dismissModalViewControllerAnimated:YES];
             
         }
@@ -365,7 +341,6 @@ static NSString *file = @"picture.jpg";
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
