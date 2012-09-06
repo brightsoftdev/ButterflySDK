@@ -248,6 +248,11 @@ static ButterflyManager *manager;
      */
 }
 
+#pragma mark - StationSearches:
+- (void)searchStations:(BRStationSearchFilter)filter
+{
+    
+}
 
 
 #pragma mark - RemoteControlNotifications;

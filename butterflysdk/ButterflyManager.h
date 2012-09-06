@@ -40,4 +40,5 @@
 - (void)showRadio;
 - (void)start:(int)index;
 - (void)receivedRemoteControlEvent:(UIEvent *)event;
+- (void)searchStations:(BRStationSearchFilter)filter;
 @end
