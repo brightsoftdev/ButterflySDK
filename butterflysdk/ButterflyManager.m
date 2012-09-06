@@ -272,7 +272,7 @@ static ButterflyManager *manager;
 
     GetImage *adminStations = [[GetImage alloc] initWithTarget:self address:url action:@selector(searchResultsReturned:) filter:filter];
     [queue addOperation:adminStations];
-    [stations release];
+    [adminStations release];
 
 }
 
