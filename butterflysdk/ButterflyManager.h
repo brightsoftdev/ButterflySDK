@@ -23,6 +23,7 @@
 
 @interface ButterflyManager : NSObject <BRNetworkOpDelegate> {
     BRNetworkOp *req;
+    NSOperationQueue *queue;
 }
 
 @property (assign) id delegate;

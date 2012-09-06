@@ -29,6 +29,7 @@ static ButterflyManager *manager;
     self = [super init];
     if (self){
         self.appHost = hostStation;
+        queue = [[NSOperationQueue alloc] init];
         NSLog(@"BUTTERFLY MANAGER - INIT WITH APP HOST: %@", self.appHost);
         [self configure];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFile:) name:@"new file" object:nil];
@@ -80,7 +81,7 @@ static ButterflyManager *manager;
     if (manager){
         [manager release];
     }
-    
+    [queue release];
     [super dealloc];
 }
 
