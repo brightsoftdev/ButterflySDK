@@ -252,23 +252,42 @@ static ButterflyManager *manager;
 #pragma mark - StationSearches:
 - (void)searchStations:(BRStationSearchFilter)filter
 {
-    NSString *url = [NSString stringWithFormat:@"http://%@/api/station?admins=dennykwon2@gmail.com", kUrl];
+    NSString *url = nil;
+    
+    
+    if (filter==StationSearchFilterTop)
+        url = [NSString stringWithFormat:@"http://%@/api/station", kUrl];
+
+
+    if (filter==StationSearchFilterEmail)
+        url = [NSString stringWithFormat:@"http://%@/api/station?host=%@", kUrl, self.appHost];
+
+
+    if (filter==StationSearchFilterAdmin)
+        url = [NSString stringWithFormat:@"http://%@/api/station?admins=%@", kUrl, self.appHost];
+
+    
+    if (!url)
+        return;
+
     GetImage *adminStations = [[GetImage alloc] initWithTarget:self address:url action:@selector(searchResultsReturned:) filter:filter];
     [queue addOperation:adminStations];
     [stations release];
+
 }
 
 - (void)searchResultsReturned:(NSArray *)pkg
 {
+    NSLog(@"searchResultsReturned:");
     if (pkg!=nil){
-        NSData *returnData = [pkg objectAtIndex:0];
+        NSData *returnData = [pkg lastObject];
         
         NSError *error = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONWritingPrettyPrinted error:&error];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
         if (error)
             return;
         
-        
+        NSLog(@"%@", [jsonObject description]);
         
         
         
