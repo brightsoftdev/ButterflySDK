@@ -12,6 +12,19 @@
     if (self){
         target = t;
         action = cbk;
+        filter = StationSearchFilterTop;
+        address = [a retain];
+    }
+    return  self;
+}
+
+- (id)initWithTarget:(id)t address:(NSString *)a action:(SEL)cbk filter:(BRStationSearchFilter)f
+{
+    self = [super init];
+    if (self){
+        target = t;
+        action = cbk;
+        filter = f;
         address = [a retain];
     }
     return  self;
