@@ -29,6 +29,8 @@ static ButterflyManager *manager;
     self = [super init];
     if (self){
         self.appHost = hostStation;
+        self.stations = nil;
+        
         queue = [[NSOperationQueue alloc] init];
         NSLog(@"BUTTERFLY MANAGER - INIT WITH APP HOST: %@", self.appHost);
         [self configure];
@@ -166,23 +168,6 @@ static ButterflyManager *manager;
 }
 
 
-
-- (void)getStationsByAdmin:(NSString *)admin //returns all stations with specific admin
-{
-    [self checkCache:kAdminStationsReq];
-    if (req!=nil){
-        req.delegate = nil;
-        [req cancel];
-        [req release];
-    }
-    
-    NSString *url = [NSString stringWithFormat:@"http://%@/api/station?admins=%@", kUrl, admin];
-    req = [[BRNetworkOp alloc] initWithAddress:url parameters:nil];
-    req.delegate = self;
-    [req setHttpMethod:@"GET"];
-    [req sendRequest];
-}
-
 - (void)parse:(NSString *)json
 {
     NSDictionary *d = [json JSONValue];
@@ -200,7 +185,9 @@ static ButterflyManager *manager;
         
         NSString *confirmation = [d objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"found"]){
-            self.stations = [NSMutableDictionary dictionary];
+            if (self.stations==nil)
+                self.stations = [NSMutableDictionary dictionary];
+            
             NSArray *s = [d objectForKey:@"stations"];
             for (int i=0; i<[s count]; i++){
                 NSDictionary *info = [s objectAtIndex:i];

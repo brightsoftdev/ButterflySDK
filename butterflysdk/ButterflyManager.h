@@ -38,7 +38,6 @@
 @property (copy, nonatomic) NSString *appHost;
 + (ButterflyManager *)managerWithAppHost:(NSString *)appHost;
 - (void)fetchStations;
-- (void)getStationsByAdmin:(NSString *)admin;
 - (void)showRadio;
 - (void)start:(int)index;
 - (void)receivedRemoteControlEvent:(UIEvent *)event;
