@@ -252,9 +252,29 @@ static ButterflyManager *manager;
 #pragma mark - StationSearches:
 - (void)searchStations:(BRStationSearchFilter)filter
 {
-    
+    NSString *url = [NSString stringWithFormat:@"http://%@/api/station?admins=dennykwon2@gmail.com", kUrl];
+    GetImage *adminStations = [[GetImage alloc] initWithTarget:self address:url action:@selector(searchResultsReturned:) filter:filter];
+    [queue addOperation:adminStations];
+    [stations release];
 }
 
+- (void)searchResultsReturned:(NSArray *)pkg
+{
+    if (pkg!=nil){
+        NSData *returnData = [pkg objectAtIndex:0];
+        
+        NSError *error = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONWritingPrettyPrinted error:&error];
+        if (error)
+            return;
+        
+        
+        
+        
+        
+    }
+    
+}
 
 #pragma mark - RemoteControlNotifications;
 //    [self.butterflyMgr receivedRemoteControlEvent:event];
