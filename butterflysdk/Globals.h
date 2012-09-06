@@ -9,7 +9,11 @@
 #ifndef butterflyradio_Globals_h
 #define butterflyradio_Globals_h
 
-
+typedef enum {
+    StationSearchFilterTop = 0, //top 10 stations overall
+    StationSearchFilterAdmin, // all stations where ButterflyManager email is also an admin
+    StationSearchFilterEmail //stations whose host is the ButterflyManager email
+} BRStationSearchFilter;
 
 
 #define kUrl @"thegrid-butterflyradio.appspot.com"
