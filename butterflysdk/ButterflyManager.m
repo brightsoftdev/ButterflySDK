@@ -149,6 +149,24 @@ static ButterflyManager *manager;
     }
 }
 
+- (void)fetchStations
+{
+    [self checkCache:kAdminStationsReq];
+    if (req!=nil){
+        req.delegate = nil;
+        [req cancel];
+        [req release];
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/api/station?admins=%@", kUrl, self.appHost];
+    req = [[BRNetworkOp alloc] initWithAddress:url parameters:nil];
+    req.delegate = self;
+    [req setHttpMethod:@"GET"];
+    [req sendRequest];
+}
+
+
+
 - (void)getStationsByAdmin:(NSString *)admin //returns all stations with specific admin
 {
     [self checkCache:kAdminStationsReq];

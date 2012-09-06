@@ -37,6 +37,7 @@
 @property (retain, nonatomic) NSString *appVersion;
 @property (copy, nonatomic) NSString *appHost;
 + (ButterflyManager *)managerWithAppHost:(NSString *)appHost;
+- (void)fetchStations;
 - (void)getStationsByAdmin:(NSString *)admin;
 - (void)showRadio;
 - (void)start:(int)index;
