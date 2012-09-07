@@ -28,6 +28,7 @@ typedef enum {
 #define kInterruptionNotification @"pause"
 #define kRefreshNotification @"refresh"
 #define kResetFeaturedViews @"ResetFeaturedViews"
+#define kStationsReadyNotification @"StationsReady"
 
 
 #define REFRESH_HEADER_HEIGHT 62.0f

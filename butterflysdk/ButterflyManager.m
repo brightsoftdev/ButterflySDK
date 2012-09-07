@@ -161,48 +161,55 @@ static ButterflyManager *manager;
 
 - (void)requestData:(NSArray *)pkg
 {
-    if (pkg!=nil){
-        NSData *returnData = [pkg objectAtIndex:1];
-        
-        NSError *error = nil;
-        NSDictionary *d = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
-        if (error){
-            [req sendRequest];
-            return;
-        }
-        
-        d = [d objectForKey:@"results"];
-        NSLog(@"REQUEST DATA: %@", [d description]);
-        
-        NSString *confirmation = [d objectForKey:@"confirmation"];
-        if ([confirmation isEqualToString:@"found"]){
-            if (self.stations==nil)
-                self.stations = [NSMutableDictionary dictionary];
-            
-            [self.stations removeAllObjects];
-            NSArray *s = [d objectForKey:@"stations"];
-            NSMutableArray *hostStations = [NSMutableArray array];
-            NSMutableArray *admin = [NSMutableArray array];
-            
-            for (int i=0; i<[s count]; i++){
-                NSDictionary *info = [s objectAtIndex:i];
-                Station *station = [[Station alloc] init];
-                [station populate:info];
-                
-                if ([station.host isEqualToString:self.appHost]){
-                    [hostStations addObject:station];
-                }
-                else{
-                    [admin addObject:station];
-                }
-                [station release];
-            }
-            
-            [stations setObject:hostStations forKey:@"host"];
-            [stations setObject:admin forKey:@"admin"];
-        }
-
+    if (pkg==nil)
+        return;
+    
+    
+    NSData *returnData = [pkg objectAtIndex:1];
+    
+    NSError *error = nil;
+    NSDictionary *d = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
+    if (error){
+        [req sendRequest];
+        return;
     }
+    
+    d = [d objectForKey:@"results"];
+    NSLog(@"REQUEST DATA: %@", [d description]);
+    
+    NSString *confirmation = [d objectForKey:@"confirmation"];
+    if ([confirmation isEqualToString:@"found"]){
+        NSArray *s = [d objectForKey:@"stations"];
+        if ([s containsObject:@"none"])
+            return;
+        
+
+        if (self.stations==nil)
+            self.stations = [NSMutableDictionary dictionary];
+        
+        [self.stations removeAllObjects];
+        NSMutableArray *hostStations = [NSMutableArray array];
+        NSMutableArray *admin = [NSMutableArray array];
+        
+        for (int i=0; i<[s count]; i++){
+            NSDictionary *info = [s objectAtIndex:i];
+            Station *station = [[Station alloc] init];
+            [station populate:info];
+            
+            if ([station.host isEqualToString:self.appHost]){
+                [hostStations addObject:station];
+            }
+            else{
+                [admin addObject:station];
+            }
+            [station release];
+        }
+        
+        [self.stations setObject:hostStations forKey:@"host"];
+        [self.stations setObject:admin forKey:@"admin"];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kStationsReadyNotification object:nil]];
 }
 
 
