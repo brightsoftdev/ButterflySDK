@@ -28,7 +28,7 @@ static ButterflyManager *manager;
 {
     self = [super init];
     if (self){
-        self.appHost = hostStation;
+        self.appHost = [hostStation lowercaseString];
         self.stations = nil;
         
         queue = [[NSOperationQueue alloc] init];
@@ -188,15 +188,28 @@ static ButterflyManager *manager;
             if (self.stations==nil)
                 self.stations = [NSMutableDictionary dictionary];
             
+            [self.stations removeAllObjects];
             NSArray *s = [d objectForKey:@"stations"];
+            NSMutableArray *hostStations = [NSMutableArray array];
+            NSMutableArray *admin = [NSMutableArray array];
+            
             for (int i=0; i<[s count]; i++){
                 NSDictionary *info = [s objectAtIndex:i];
                 Station *station = [[Station alloc] init];
                 [station populate:info];
                 
-                [stations setObject:station forKey:station.name];
+                if ([station.host isEqualToString:self.appHost]){
+                    [hostStations addObject:station];
+                }
+                else{
+                    [admin addObject:station];
+                }
+//                [stations setObject:station forKey:station.name];
                 [station release];
             }
+            
+            [stations setObject:hostStations forKey:@"host"];
+            [stations setObject:admin forKey:@"admin"];
         }
     }
 }

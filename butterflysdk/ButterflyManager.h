@@ -31,7 +31,7 @@
 @property (retain, nonatomic) Player *player;
 @property (retain, nonatomic) Host *host;
 @property (retain, nonatomic) Station *currentStation;
-@property (retain, nonatomic) NSMutableDictionary *stations;
+@property (retain, nonatomic) NSMutableDictionary *stations; //contains 2 arrays: host, admin
 @property (retain, nonatomic) NSString *appBundle;
 @property (retain, nonatomic) NSString *appName;
 @property (retain, nonatomic) NSString *appVersion;
