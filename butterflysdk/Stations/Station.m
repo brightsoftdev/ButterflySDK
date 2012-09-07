@@ -309,7 +309,7 @@
         }
         if ([key isEqualToString:@"description"]){ self.description = [info objectForKey:key]; }
         if ([key isEqualToString:@"category"]){ self.category = [info objectForKey:key]; }
-        if ([key isEqualToString:@"host"]){ self.host = [info objectForKey:key]; }
+        if ([key isEqualToString:@"host"]){ self.host = [[info objectForKey:key] lowercaseString]; }
         if ([key isEqualToString:@"image"]){ 
             NSString *img = [info objectForKey:key];
             NSArray *parts = [img componentsSeparatedByString:@"=="];
