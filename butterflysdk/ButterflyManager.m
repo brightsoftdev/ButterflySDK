@@ -142,18 +142,9 @@ static ButterflyManager *manager;
 }
 
 
-- (void)checkCache:(NSString *)key
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *json = [defaults objectForKey:kAdminStationsReq];
-    if (json){
-        [self parse:json];
-    }
-}
-
 - (void)fetchStations
 {
-    [self checkCache:kAdminStationsReq];
+//    [self checkCache:kAdminStationsReq];
     if (req!=nil){
         req.delegate = nil;
         [req cancel];
@@ -168,20 +159,20 @@ static ButterflyManager *manager;
 }
 
 
-- (void)parse:(NSString *)json
+- (void)requestData:(NSArray *)pkg
 {
-    NSDictionary *d = [json JSONValue];
-    if (d==nil){
-        NSLog(@"JSON ERROR: %@", json);
-        [req sendRequest];
-    }
-    else{
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:json forKey:kAdminStationsReq];
-        [defaults synchronize];
-
+    if (pkg!=nil){
+        NSData *returnData = [pkg objectAtIndex:1];
+        
+        NSError *error = nil;
+        NSDictionary *d = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
+        if (error){
+            [req sendRequest];
+            return;
+        }
+        
         d = [d objectForKey:@"results"];
-        NSLog(@"%@", [d description]);
+        NSLog(@"REQUEST DATA: %@", [d description]);
         
         NSString *confirmation = [d objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"found"]){
@@ -204,22 +195,13 @@ static ButterflyManager *manager;
                 else{
                     [admin addObject:station];
                 }
-//                [stations setObject:station forKey:station.name];
                 [station release];
             }
             
             [stations setObject:hostStations forKey:@"host"];
             [stations setObject:admin forKey:@"admin"];
         }
-    }
-}
 
-- (void)requestData:(NSArray *)pkg
-{
-    if (pkg!=nil){
-        NSString *json = [[NSString alloc] initWithData:[pkg objectAtIndex:1] encoding:NSUTF8StringEncoding];
-        [self parse:json];
-        [json release];
     }
 }
 
