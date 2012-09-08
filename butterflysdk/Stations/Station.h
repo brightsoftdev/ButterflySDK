@@ -19,7 +19,7 @@
 
 
 @protocol StationDelegate <NSObject>
-- (void)imageReady:(NSString *)addr;
+- (void)imageReady:(NSString *)stationId;
 - (void)stationInfoReady;
 @end
 
