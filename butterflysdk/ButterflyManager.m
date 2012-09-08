@@ -188,6 +188,7 @@ static ButterflyManager *manager;
             self.stations = [NSMutableDictionary dictionary];
         
         [self.stations removeAllObjects];
+        NSMutableArray *allStations = [NSMutableArray array];
         NSMutableArray *hostStations = [NSMutableArray array];
         NSMutableArray *admin = [NSMutableArray array];
         
@@ -196,6 +197,7 @@ static ButterflyManager *manager;
             Station *station = [[Station alloc] init];
             [station populate:info];
             
+            [allStations addObject:station];
             if ([station.host isEqualToString:self.appHost]){
                 [hostStations addObject:station];
             }
@@ -205,6 +207,7 @@ static ButterflyManager *manager;
             [station release];
         }
         
+        [self.stations setObject:allStations forKey:@"all"];
         [self.stations setObject:hostStations forKey:@"host"];
         [self.stations setObject:admin forKey:@"admin"];
     }
