@@ -135,14 +135,14 @@ static NSString *share = @"share";
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thumbnailReady) name:kThumbnailReadyNotification object:nil];
         
-        UISegmentedControl *sectionsSegment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Radio", @"News", nil]];
-        sectionsSegment.frame = CGRectMake(0, 0, 160, 30);
-        [sectionsSegment addTarget:self action:@selector(switchMode:) forControlEvents:UIControlEventValueChanged];
-        sectionsSegment.selectedSegmentIndex = 0;
-        sectionsSegment.segmentedControlStyle = UISegmentedControlStyleBar;
-        sectionsSegment.tintColor = self.navigationController.navigationBar.tintColor;
-        self.navigationItem.titleView = sectionsSegment;
-        [sectionsSegment release];
+//        UISegmentedControl *sectionsSegment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Radio", @"News", nil]];
+//        sectionsSegment.frame = CGRectMake(0, 0, 160, 30);
+//        [sectionsSegment addTarget:self action:@selector(switchMode:) forControlEvents:UIControlEventValueChanged];
+//        sectionsSegment.selectedSegmentIndex = 0;
+//        sectionsSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+//        sectionsSegment.tintColor = self.navigationController.navigationBar.tintColor;
+//        self.navigationItem.titleView = sectionsSegment;
+//        [sectionsSegment release];
 
     }
     return self;
@@ -184,6 +184,16 @@ static NSString *share = @"share";
     UIView *view = [[UIView alloc] initWithFrame:frame];
     view.autoresizingMask = resize;
     view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_station.png"]];
+    
+    UISegmentedControl *sectionsSegment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Radio", @"News", nil]];
+    sectionsSegment.frame = CGRectMake(0, 0, 160, 30);
+    [sectionsSegment addTarget:self action:@selector(switchMode:) forControlEvents:UIControlEventValueChanged];
+    sectionsSegment.selectedSegmentIndex = 0;
+    sectionsSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    sectionsSegment.tintColor = self.navigationController.navigationBar.tintColor;
+    self.navigationItem.titleView = sectionsSegment;
+    [sectionsSegment release];
+
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 26)];
     titleLabel.font = [UIFont fontWithName:kFont size:16.0f];
