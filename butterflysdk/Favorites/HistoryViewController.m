@@ -13,8 +13,6 @@
 @end
 
 @implementation HistoryViewController
-@synthesize saved;
-@synthesize db;
 
 - (id)init
 {
@@ -27,9 +25,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kThumbnailReadyNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetData) name:kResetDatabase object:nil];
         
-        self.db = [Database database];
-        self.saved = [self.db fetchAll];
-        
     }
     return self;
 }
@@ -38,15 +33,15 @@
 {
     self = [super initWithManager:mgr];
     if (self) {
+        if (!self.butterflyMgr.favorites)
+            [self.butterflyMgr checkFavorites];
+        
         cellBg = [[UIImage imageNamed:@"bg_cell_station.png"] retain];
         self.tabBarItem.image = [UIImage imageNamed:@"tab_favorites.png"];
         self.title = @"Favorites";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kThumbnailReadyNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetData) name:kResetDatabase object:nil];
-        
-        self.db = [Database database];
-        self.saved = [db fetchAll];
     }
     return self;
 }
@@ -54,9 +49,7 @@
 
 - (void)dealloc
 {
-    self.db = nil;
     [theTableview release];
-    [saved release];
     [cellBg release];
     [explanation release];
     [super dealloc];
@@ -101,10 +94,14 @@
         
     }
     
-    if ([saved count]>0){
+//    if ([saved count]>0){
+//        explanation.hidden = YES;
+//    }
+
+    if ([self.butterflyMgr.favorites count]>0){
         explanation.hidden = YES;
     }
-    
+
     self.view = view;
     [view release];
 }
@@ -132,7 +129,7 @@
 - (void)refresh //called when station thumbnail is ready
 {
     [theTableview reloadData];
-    if ([saved count]>0){
+    if ([self.butterflyMgr.favorites count]>0){
         explanation.hidden = YES;
     }
     else{
@@ -142,14 +139,16 @@
 
 - (void)resetData
 {
-    self.saved = [db fetchAll];
+//    self.saved = [db fetchAll];
+    
+    [self.butterflyMgr checkFavorites];
     [self refresh];
 }
 
 #pragma mark - Tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [saved count];
+    return [self.butterflyMgr.favorites count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,7 +160,7 @@
         [cell setup];
         cell.delegate = self;
     }
-    Station *station = (Station *)[saved objectAtIndex:indexPath.row];
+    Station *station = (Station *)[self.butterflyMgr.favorites objectAtIndex:indexPath.row];
     cell.nameLabel.text = station.name;
     cell.categoryLabel.text = station.category;
     cell.tag = 1000+indexPath.row;
@@ -201,7 +200,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Station *station = (Station *)[saved objectAtIndex:indexPath.row];
+    Station *station = (Station *)[self.butterflyMgr.favorites objectAtIndex:indexPath.row];
     if (station){
         StationViewController *stationView = [[StationViewController alloc] init];
         stationView.butterflyMgr = self.butterflyMgr;
@@ -227,11 +226,11 @@
 
 - (void)deleteStation:(int)index
 {
-    Station *station = [saved objectAtIndex:index];
+    Station *station = [self.butterflyMgr.favorites objectAtIndex:index];
     if (station){
         NSLog(@"DELETE STATION: %@", station.unique_id);
         [station deleteFromDb];
-        [saved removeObject:station];
+        [self.butterflyMgr.favorites removeObject:station];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [theTableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self refresh];
