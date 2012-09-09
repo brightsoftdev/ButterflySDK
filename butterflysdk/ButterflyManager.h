@@ -45,4 +45,5 @@
 - (void)start:(int)index;
 - (void)receivedRemoteControlEvent:(UIEvent *)event;
 - (void)searchStations:(BRStationSearchFilter)filter;
+- (void)loadTrack:(NSIndexPath *)indexPath fromStation:(Station *)station;
 @end

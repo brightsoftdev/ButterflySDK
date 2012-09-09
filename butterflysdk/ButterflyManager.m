@@ -152,6 +152,22 @@ static ButterflyManager *manager;
     self.favorites = [db fetchAll];
 }
 
+- (void)loadTrack:(NSIndexPath *)indexPath fromStation:(Station *)station
+{
+    Thread *thread = (Thread *)[station.threadArray objectAtIndex:indexPath.section];
+    AudioFile *track = (AudioFile *)[thread.thread objectAtIndex:indexPath.row];
+    
+    self.player.files = station.tracks;
+    self.player.adFrequency = station.adFreq;
+    self.currentStation = station;
+    
+    if (self.player.streamer.isRunning==TRUE){
+        [self.player playFile:[station.tracks indexOfObject:track]];
+    }
+    else {
+        [self.player start:[station.tracks indexOfObject:track]];
+    }
+}
 
 - (void)fetchStations
 {
