@@ -22,6 +22,7 @@ static ButterflyManager *manager;
 @synthesize appVersion;
 @synthesize appHost;
 @synthesize db;
+@synthesize favorites;
 
 
 - (id)initWithAppHost:(NSString *)hostStation
@@ -73,6 +74,7 @@ static ButterflyManager *manager;
     self.appVersion = nil;
     self.appHost = nil;
     self.db = nil;
+    self.favorites = nil;
     
     if (req!=nil){
         req.delegate = nil;
@@ -126,6 +128,9 @@ static ButterflyManager *manager;
     BOOL success = [fileManager fileExistsAtPath:writableDBPath];
     if (success==TRUE){
         NSLog(@"DATABASE FOUND!");
+        self.db = [Database database];
+        [self checkFavorites];
+
         return;
     }
     
@@ -138,7 +143,13 @@ static ButterflyManager *manager;
     }
     
     self.db = [Database database];
+    [self checkFavorites];
+}
 
+- (void)checkFavorites
+{
+    NSLog(@"BUTTERFLY MANAGER - checkFavorites");
+    self.favorites = [db fetchAll];
 }
 
 

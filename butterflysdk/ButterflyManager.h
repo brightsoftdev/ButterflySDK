@@ -36,9 +36,12 @@
 @property (retain, nonatomic) NSString *appName;
 @property (retain, nonatomic) NSString *appVersion;
 @property (copy, nonatomic) NSString *appHost;
+@property (retain, nonatomic) NSMutableArray *favorites;
+
 + (ButterflyManager *)managerWithAppHost:(NSString *)appHost;
 - (void)fetchStations;
 - (void)showRadio;
+- (void)checkFavorites;
 - (void)start:(int)index;
 - (void)receivedRemoteControlEvent:(UIEvent *)event;
 - (void)searchStations:(BRStationSearchFilter)filter;
