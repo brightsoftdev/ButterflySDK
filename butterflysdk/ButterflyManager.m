@@ -46,8 +46,8 @@ static ButterflyManager *manager;
         self.player = p;
         [p release];
         
-        [self checkDatabase]; // 
-
+        [self checkDatabase];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkFavorites) name:kResetDatabase object:nil];
     }
     return self;
 }
