@@ -16,11 +16,11 @@
     
     UITableView *theTableview;
     NSMutableArray *saved; //station name==email==category==image
-    Database *db;
     
     UIImage *cellBg;
     UILabel *explanation;
 }
 
 @property (retain, nonatomic) NSMutableArray *saved;
+@property (retain, nonatomic) Database *db;
 @end

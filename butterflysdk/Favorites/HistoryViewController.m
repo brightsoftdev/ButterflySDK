@@ -14,6 +14,7 @@
 
 @implementation HistoryViewController
 @synthesize saved;
+@synthesize db;
 
 - (id)init
 {
@@ -26,8 +27,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kThumbnailReadyNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetData) name:kResetDatabase object:nil];
         
-        db = [Database database];
-        self.saved = [db fetchAll];
+        self.db = [Database database];
+        self.saved = [self.db fetchAll];
         
     }
     return self;
@@ -44,7 +45,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:kThumbnailReadyNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetData) name:kResetDatabase object:nil];
         
-        db = [Database database];
+        self.db = [Database database];
         self.saved = [db fetchAll];
     }
     return self;
@@ -53,9 +54,9 @@
 
 - (void)dealloc
 {
+    self.db = nil;
     [theTableview release];
     [saved release];
-    [db release];
     [cellBg release];
     [explanation release];
     [super dealloc];
