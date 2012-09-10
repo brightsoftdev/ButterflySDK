@@ -45,7 +45,7 @@
 
 - (id)initWithManager:(ButterflyManager *)mgr
 {
-    self = [super initWithManager:self.butterflyMgr];
+    self = [super initWithManager:mgr];
     if (self) {
         self.title = @"New Station";
         self.hidesBottomBarWhenPushed = YES;
@@ -159,36 +159,32 @@
 
 - (void)create
 {
+    NSLog(@"CREATE: %@", self.butterflyMgr.appHost);
     if ([nameField.text length]==0 || [tagsField.text length]==0){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Value" message:@"Please complete all fields." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-        [alert show];
-        [alert release];
+        [self showAlert:@"Missing Value" message:@"Please complete all fields."];
+        return;
     }
-    else{
-        if (req!=nil){
-            [req cancel];
-            req.delegate = nil;
-            [req release];
-        }
-        
-        NSString *url = [NSString stringWithFormat:@"http://%@/api/station", kUrl];
-        NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"yes", @"hidden", nameField.text, @"name", host.email, @"email", tagsField.text, @"tags", categoryLabel.text, @"category", @"create", @"action", nil];
-        
-//        if ([self.butterflyMgr.host.email isEqualToString:kAppHost]==FALSE){
-//            NSString *appHost = [NSString stringWithFormat:@"%@", kAppHost];
-//            [params setObject:appHost forKey:@"appHost"];
-//        }
-
-        if ([self.butterflyMgr.host.email isEqualToString:self.butterflyMgr.appHost]==FALSE){
-            NSString *appHost = [NSString stringWithFormat:@"%@", self.butterflyMgr.appHost];
-            [params setObject:appHost forKey:@"appHost"];
-        }
-
-        req = [[BRNetworkOp alloc] initWithAddress:url parameters:params];
-        req.delegate = self;
-        [req sendRequest];
-        [loading show];
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/api/station", kUrl];
+    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"yes", @"hidden", nameField.text, @"name", host.email, @"email", tagsField.text, @"tags", categoryLabel.text, @"category", @"create", @"action", nil];
+    
+    if ([self.butterflyMgr.host.email isEqualToString:self.butterflyMgr.appHost]==FALSE){
+        NSLog(@"SEND APPROVAL REQUEST TO %@", self.butterflyMgr.appHost);
+        NSString *appHost = [NSString stringWithFormat:@"%@", self.butterflyMgr.appHost];
+        [params setObject:appHost forKey:@"appHost"];
     }
+
+    
+    if (req!=nil){
+        [req cancel];
+        req.delegate = nil;
+        [req release];
+    }
+
+    req = [[BRNetworkOp alloc] initWithAddress:url parameters:params];
+    req.delegate = self;
+    [req sendRequest];
+    [loading show];
 }
 
 - (void)requestData:(NSArray *)pkg //returns [address, data]

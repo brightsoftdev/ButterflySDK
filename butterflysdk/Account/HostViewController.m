@@ -163,8 +163,6 @@ static UIImage *cellBg;
 
 - (void)createStation
 {
-//    newStation = TRUE;
-//    CreateStationViewController *create = [[CreateStationViewController alloc] init];
     CreateStationViewController *create = [[CreateStationViewController alloc] initWithManager:self.butterflyMgr];
     create.host = host;
     create.delegate = self;
