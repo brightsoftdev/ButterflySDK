@@ -16,7 +16,7 @@
 @end
 
 @interface CreateStationViewController : ButterflyViewController <URLRequestDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
-    URLRequest *req;
+    BRNetworkOp *req;
     LoadingIndicator *loading;
     Host *host;
     

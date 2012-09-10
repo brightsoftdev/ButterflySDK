@@ -184,7 +184,7 @@
             [params setObject:appHost forKey:@"appHost"];
         }
 
-        req = [[URLRequest alloc] initWithAddress:url parameters:params];
+        req = [[BRNetworkOp alloc] initWithAddress:url parameters:params];
         req.delegate = self;
         [req sendRequest];
         [loading show];
