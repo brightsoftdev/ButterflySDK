@@ -179,6 +179,7 @@ static ButterflyManager *manager;
     }
     
     NSString *url = [NSString stringWithFormat:@"http://%@/api/station?admins=%@", kUrl, self.appHost];
+    NSLog(@"BUTTERFLY MANAGER - FETCH STATIONS: %@", url);
     req = [[BRNetworkOp alloc] initWithAddress:url parameters:nil];
     req.delegate = self;
     [req setHttpMethod:@"GET"];
@@ -191,8 +192,12 @@ static ButterflyManager *manager;
     if (pkg==nil)
         return;
     
+    NSLog(@"PACKAGE: %d", [pkg count]);
     
     NSData *returnData = [pkg objectAtIndex:1];
+    NSString *jsonString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    NSLog(@"%d bytes, JSON STRING: %@", returnData.length, jsonString);
+    [jsonString release];
     
     NSError *error = nil;
     NSDictionary *d = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
@@ -202,7 +207,7 @@ static ButterflyManager *manager;
     }
     
     d = [d objectForKey:@"results"];
-    NSLog(@"REQUEST DATA: %@", [d description]);
+    NSLog(@"BUTTERFLY MANAGER - REQUEST DATA: %@", [d description]);
     
     NSString *confirmation = [d objectForKey:@"confirmation"];
     if ([confirmation isEqualToString:@"found"]){
