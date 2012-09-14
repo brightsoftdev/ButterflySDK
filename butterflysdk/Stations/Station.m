@@ -139,6 +139,7 @@
 
 - (void)fetchImage
 {
+    NSLog(@"STATION: fetchImage");
     if (getImage==nil){
         if (queue==nil){ queue = [[NSOperationQueue alloc] init]; }
         NSString *url = self.image;
