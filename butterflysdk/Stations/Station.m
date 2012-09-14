@@ -168,8 +168,6 @@
         if (queue==nil){ queue = [[NSOperationQueue alloc] init]; }
         NSString *url = self.image;
         if ([url rangeOfString:@"default.jpg"].location == NSNotFound){
-//            url = [url stringByAppendingString:@"=s60-c"];
-//            int dimen = kCellHeight-10;
             url = [url stringByAppendingString:[NSString stringWithFormat:@"=s%d-c", dimen]];
         }
         getThumb = [[GetImage alloc] initWithTarget:self address:url action:@selector(thumbnailReady:)];
