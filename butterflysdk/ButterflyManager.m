@@ -192,12 +192,11 @@ static ButterflyManager *manager;
     if (pkg==nil)
         return;
     
-    NSLog(@"PACKAGE: %d", [pkg count]);
     
     NSData *returnData = [pkg objectAtIndex:1];
-    NSString *jsonString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    NSLog(@"%d bytes, JSON STRING: %@", returnData.length, jsonString);
-    [jsonString release];
+//    NSString *jsonString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%d bytes, JSON STRING: %@", returnData.length, jsonString);
+//    [jsonString release];
     
     NSError *error = nil;
     NSDictionary *d = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableContainers error:&error];
