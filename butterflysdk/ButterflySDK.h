@@ -14,4 +14,5 @@
 #import "StationsViewController.h"
 #import "HistoryViewController.h"
 #import "LoginViewController.h"
+#import "SignalCheck.h"
 
