@@ -37,6 +37,7 @@
 {
     [whiteBg release];
     [backgrounds release];
+    [btnTitles release];
     self.stationImage = nil;
     self.nameLabel = nil;
     self.btnAdmins = nil;
