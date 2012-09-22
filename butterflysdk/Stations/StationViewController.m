@@ -148,6 +148,26 @@ static NSString *share = @"share";
     return self;
 }
 
+- (id)initWithManager:(ButterflyManager *)mgr
+{
+    self = [super initWithManager:mgr];
+    if (self) {
+        reload = FALSE;
+        self.hidesBottomBarWhenPushed = TRUE;
+        vMode = ViewModeRadio;
+        backgrounds = [[NSArray alloc] initWithObjects:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_cell.png"]],  [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_cell_tint.png"]], nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"image ready" object:nil];
+        sections = [[NSArray alloc] initWithObjects:audio, articles, reviews, share, contact, nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thumbnailReady) name:kThumbnailReadyNotification object:nil];
+    }
+    return self;
+}
+
+
+
 - (void)dealloc
 {
     self.btn_reviews = nil;
