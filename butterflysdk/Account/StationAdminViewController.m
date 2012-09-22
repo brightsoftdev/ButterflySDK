@@ -71,6 +71,7 @@
 
 - (void)loadView
 {
+    reloadable = NO;
     CGRect frame = [UIScreen mainScreen].applicationFrame;
     UIView *view = [[UIView alloc] initWithFrame:frame];
     view.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
