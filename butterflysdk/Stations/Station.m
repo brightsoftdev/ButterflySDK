@@ -183,6 +183,7 @@
         self.thumbnail = [UIImage imageWithData:[pkg objectAtIndex:1]];
         [getThumb release];
         getThumb = nil;
+        [delegate thumbnailDownloaded:self.unique_id];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kThumbnailReadyNotification object:nil]];
     }
 }

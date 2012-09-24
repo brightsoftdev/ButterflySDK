@@ -19,7 +19,9 @@
 
 
 @protocol StationDelegate <NSObject>
+@optional
 - (void)imageReady:(NSString *)stationId;
+- (void)thumbnailDownloaded:(NSString *)stationId;
 - (void)stationInfoReady;
 @end
 
