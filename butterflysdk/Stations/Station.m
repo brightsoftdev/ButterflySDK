@@ -158,7 +158,11 @@
         self.imgData = [pkg objectAtIndex:1];
         [getImage release];
         getImage = nil;
-        [delegate imageReady:self.unique_id];
+//        [delegate imageReady:self.unique_id];
+        
+        if ([delegate respondsToSelector:@selector(imageReady:)])
+            [delegate imageReady:self.unique_id];
+
     }
 }
 
@@ -183,8 +187,9 @@
         self.thumbnail = [UIImage imageWithData:[pkg objectAtIndex:1]];
         [getThumb release];
         getThumb = nil;
-        [delegate thumbnailDownloaded:self.unique_id];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kThumbnailReadyNotification object:nil]];
+        if ([delegate respondsToSelector:@selector(thumbnailDownloaded:)])
+            [delegate thumbnailDownloaded:self.unique_id];
     }
 }
 
