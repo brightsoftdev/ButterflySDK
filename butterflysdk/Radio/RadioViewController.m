@@ -510,7 +510,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh)
 
 - (void)fileComplete
 {
-    NSLog(@"RADIO VIEW CONTROLLER - fileComplete");
+//    NSLog(@"RADIO VIEW CONTROLLER - fileComplete");
     detailsView.slider.value = detailsView.slider.maximumValue;
 }
 
