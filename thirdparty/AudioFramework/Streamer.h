@@ -24,10 +24,8 @@
 	AudioFileStreamID fileStream;
 	AudioQueueRef queue;
 	
-	BOOL isRunning; 
     BOOL readyToAcceptPackets;
     BOOL flushing;
-    BOOL falseFinish;
 	int bufferCount, callbackCount;
     int checkDataCount;
 	SInt32 totalBytes, byteOffset;
@@ -43,6 +41,7 @@
 @property (nonatomic) BOOL isRunning;
 @property (nonatomic) BOOL flushing;
 @property (nonatomic) BOOL readyToAcceptPackets;
+@property (nonatomic) BOOL falseFinish;
 @property (readwrite) AudioFileStreamID fileStream;
 @property (readwrite) AudioQueueRef queue;
 @property (retain, nonatomic) AudioFile *source;

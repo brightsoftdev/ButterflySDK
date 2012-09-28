@@ -137,6 +137,7 @@ void packetCallback(void *inClientData, UInt32 inNumberBytes, UInt32 inNumberPac
 @synthesize readyToAcceptPackets;
 @synthesize flushing;
 @synthesize source;
+@synthesize falseFinish;
 
 + (void)initialize
 {
@@ -151,8 +152,8 @@ void packetCallback(void *inClientData, UInt32 inNumberBytes, UInt32 inNumberPac
 	NSLog(@"Streamer - init");
 	self = [super init];
 	if (self){
-        falseFinish = FALSE;
-        flushing = FALSE;
+        self.falseFinish = FALSE;
+        self.flushing = FALSE;
         AudioSessionInitialize(NULL, NULL, interruptionListener, self);
         UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
         AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
@@ -218,7 +219,6 @@ void packetCallback(void *inClientData, UInt32 inNumberBytes, UInt32 inNumberPac
     isRunning = TRUE;
 	AudioQueueStart(queue, NULL);
     if (timer==nil){
-//        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(playBackTimer) userInfo:nil repeats:YES];
         timer = [NSTimer scheduledTimerWithTimeInterval:kUpdateFreq target:self selector:@selector(playBackTimer) userInfo:nil repeats:YES];
     }
     if (falseFinish==TRUE){
@@ -247,7 +247,9 @@ void packetCallback(void *inClientData, UInt32 inNumberBytes, UInt32 inNumberPac
 
 - (void)clear
 {
-    isRunning = FALSE;
+    NSLog(@"STREAMER - CLEAR");
+    self.isRunning = FALSE;
+    self.flushing = YES;
     [self pause];
     [self reset:TRUE];
     [source flush];
@@ -262,6 +264,7 @@ void packetCallback(void *inClientData, UInt32 inNumberBytes, UInt32 inNumberPac
 
 - (void)finished
 {
+    NSLog(@"STREAMER - FINISHED");
     if (source.urlConnection==nil){
         NSLog(@"STERAMER: Conventional Finish");
         [self.source reset];
