@@ -214,6 +214,7 @@
 
 - (void)skip
 {
+    NSLog(@"PLAYER - SKIP");
     if (streamer.source.ad == FALSE){
         [delegate fileComplete];
         [streamer clear];
